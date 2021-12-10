@@ -1,0 +1,51 @@
+<ng-template #content let-modal let-c="close" let-d="dismiss" >    
+  <div class="modal-header">    
+      <h4 class="modal-title" id="modal-basic-title">Confirmation</h4>    
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">    
+          <span aria-hidden="true">×</span>    
+      </button>    
+  </div>    
+  <div class="modal-body">    
+      <p>Are you sure to make this record  {{messageText}}?</p>    
+  </div>    
+  <div class="modal-footer">    
+      <button type="button"  class="btn btn-secondary" (click)="d('Cross click')">Cancel</button>    
+      <button type="button" class="btn btn-primary" (click)="c('yes')">Yes</button>    
+  </div>    
+</ng-template>
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h2>Contacts List</h2>
+  </div>
+  <div class="panel-body" style="height:331px !important;overflow-y: scroll;overflow-x: scroll;">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>Contact Name</th>
+          <th>Email</th>
+          <th>Phone Number</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="condition"><td></td><td></td><td><span style="align:center;font-weight: bolder;" >No Records Found</span></td><td></td><td></td></tr>   
+         <tr *ngFor="let contact of contacts | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize;let i=index">
+          <td>{{i+1}}</td>
+          <td>{{contact.contactName}}</td>
+          <td>{{contact.contactEmail}}</td>
+          <td>{{contact.contactNumber}}</td>
+          <td>
+              <button (click)="updateContact(contact.contactId,contact.activeSw)" class="btn btn-info" style="margin-left: 10px">Edit</button>         
+              <button *ngIf="contact.activeSw == 'Y'" style="margin-left: 5%;" (click)="deleteContact(content,contact.contactId,'N','inactive')" class="btn btn-danger">In - Active</button>
+              <button *ngIf="contact.activeSw == 'N'" style="margin-left: 5%;" (click)="deleteContact(content,contact.contactId,'Y','active')" class="btn btn-primary">Active</button>
+
+          </td>
+        </tr> 
+      </tbody>
+    </table>
+  </div>
+  <ngb-pagination style="float:right" [collectionSize]="size" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="true" [boundaryLinks]="false"></ngb-pagination>
+</div>
+

@@ -1,0 +1,57 @@
+<h3>Update Contact</h3>
+<div style="width: 400px;">
+  <form [formGroup]="contactUpdateForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="contactName">Name:</label>
+      <input type="text" class="form-control" id="firstName"  required  formControlName="contactName"
+      [ngClass]="{ 'is-invalid': submitt && contactUpdateForm.controls['contactName'].errors }"
+       [(ngModel)]="contactName">
+       <div *ngIf="contactUpdateForm.controls['contactName'].invalid && (contactUpdateForm.controls['contactName'].dirty || contactUpdateForm.controls['contactName'].touched)" class="alert">
+        <div *ngIf="contactUpdateForm.controls['contactName'].errors?.required" style="color:red">
+         Fulllname is required
+      </div>
+      <div *ngIf="contactUpdateForm.controls['contactName'].errors?.pattern"  style="color:red">
+        Name must contain only alphabets
+      </div>
+      <div *ngIf="contactUpdateForm.controls['contactName'].errors?.minlength"  style="color:red">
+        Name must be at least 6 characters
+      </div>
+      <div *ngIf="contactUpdateForm.controls['contactName'].errors?.maxlength"  style="color:red">
+        Name must not exceed 20 characters
+      </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="contactEmail">Email Id</label>
+      <input type="email" class="form-control" id="emailId" required  formControlName="contactEmail" 
+      [ngClass]="{ 'is-invalid': submitt && contactUpdateForm.controls['contactEmail'].errors }"
+      [(ngModel)]="contactEmail">
+      <div *ngIf="contactUpdateForm.controls['contactEmail'].invalid && (contactUpdateForm.controls['contactEmail'].dirty || contactUpdateForm.controls['contactEmail'].touched)" class="alert">
+        <div *ngIf="contactUpdateForm.controls['contactEmail'].errors?.required" style="color:red">
+          Email is required
+      </div>
+      <div *ngIf="contactUpdateForm.controls['contactEmail'].errors?.email" style="color:red">
+        Email is invalid 
+      </div>
+    </div>
+    </div>
+    <div class="form-group">
+      <label for="contactNumber">Phone Number</label>
+      <input type="text" class="form-control" id="phoneNo" pattern="[0-9]+" minlength="6" maxlength="10" formControlName="contactNumber" 
+      [ngClass]="{ 'is-invalid': submitt && contactUpdateForm.controls['contactNumber'].errors }"
+      [(ngModel)]="contactNumber" required>
+      <div *ngIf="contactUpdateForm.controls['contactNumber'].invalid && (contactUpdateForm.controls['contactNumber'].dirty || contactUpdateForm.controls['contactNumber'].touched)" class="alert">
+        <div *ngIf="contactUpdateForm.controls['contactNumber'].errors?.required" style="color:red">
+          Phonenumber is required
+      </div>
+      <div *ngIf="contactUpdateForm.controls['contactNumber'].errors?.pattern" style="color:red">
+        Phonenumber is invalid
+      </div>
+      <div *ngIf="contactUpdateForm.controls['contactNumber'].errors?.minlength"  style="color:red">
+         phonenumber should be 10 digits in length
+      </div>
+    </div>
+    </div>
+    <button type="submit" class="btn btn-success">Submit</button>
+  </form>
+</div>
